@@ -1,18 +1,18 @@
 Group ... Prototype
 
 
-Run Django on localhost:8000
+Run Django on localhost:8000 commands:
 
 cd backend
-venv\Scripts\activate.bat
+venv\Scripts\activate
 python manage.py startapp game
 
 
-Run React app on localhost:3000
+Run React app on localhost:3000 commands:
 
 cd frontend
-nvm use  (23.9)
-nvm start
+nvm use 23.9
+npm start dev --open
 
 Node 23.9.0
 
