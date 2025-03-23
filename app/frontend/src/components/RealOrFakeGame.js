@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './RealOrFakeGame.css';
 
 const RealOrFakeGame = () => {
   const [snippet, setSnippet] = useState('');
@@ -77,60 +78,85 @@ const RealOrFakeGame = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-2">Real or Fake Article Game</h2>
-        <p className="text-red-500">{error}</p>
-        <button className="btn mt-4" onClick={fetchQuestion}>Try Again</button>
+      <div className="game-container">
+        <div className="game-card">
+          <h2 className="game-title">Real or Fake Article Game</h2>
+          <div className="feedback-incorrect">
+            <p className="text-incorrect">{error}</p>
+          </div>
+          <div style={{textAlign: 'center', marginTop: '20px'}}>
+            <button className="button-next" onClick={fetchQuestion}>
+              Try Again
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h2 className="text-xl font-semibold mb-2">Real or Fake Article Game</h2>
-      <div className="mb-4">
-        <p className="text-sm text-gray-600">Round: {round} | Score: {score}</p>
-      </div>
-      
-      {isLoading ? (
-        <p className="my-4">Loading question...</p>
-      ) : (
-        <>
-          <div className="border p-4 rounded bg-gray-50 mb-4">
-            <h3 className="font-medium mb-2">Article Snippet:</h3>
-            <p className="italic">{snippet}</p>
+    <div className="game-container">
+      <div className="game-card">
+        {/* Header */}
+        <div className="game-header">
+          <h2 className="game-title">Real or Fake Article Game</h2>
+          <div className="game-score">
+            Round: {round} | Score: {score}
           </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <button 
-              className="btn bg-green-500 hover:bg-green-600" 
-              onClick={() => handleAnswer('real')}
-              disabled={hasAnswered}
-            >
-              Real Article
-            </button>
-            <button 
-              className="btn bg-red-500 hover:bg-red-600" 
-              onClick={() => handleAnswer('fake')}
-              disabled={hasAnswered}
-            >
-              Fake Article
-            </button>
+        </div>
+        
+        {/* Content */}
+        {isLoading ? (
+          <div className="loading">
+            <div className="loading-text">Loading question...</div>
           </div>
-          
-          {feedback && (
-            <div className={`p-3 rounded ${feedback.includes('Correct') ? 'bg-green-100' : 'bg-red-100'} mb-4`}>
-              <p className="font-medium">{feedback}</p>
+        ) : (
+          <>
+            <div className="article-card">
+              <h3 className="article-title">Article Snippet:</h3>
+              <p className="article-content">{snippet}</p>
             </div>
-          )}
-          
-          {hasAnswered && (
-            <button className="btn" onClick={handleNextQuestion}>
-              Next Question
-            </button>
-          )}
-        </>
-      )}
+            
+            <div className="button-container">
+              <button 
+                className="button-real"
+                onClick={() => handleAnswer('real')}
+                disabled={hasAnswered}
+              >
+                <span className="icon">✓</span>
+                Real Article
+              </button>
+              <button 
+                className="button-fake"
+                onClick={() => handleAnswer('fake')}
+                disabled={hasAnswered}
+              >
+                <span className="icon">✗</span>
+                Fake Article
+              </button>
+            </div>
+            
+            {feedback && (
+              <div className={feedback.includes('Correct') ? 'feedback-correct' : 'feedback-incorrect'}>
+                <p className={feedback.includes('Correct') ? 'text-correct' : 'text-incorrect'}>
+                  {feedback}
+                </p>
+              </div>
+            )}
+            
+            {hasAnswered && (
+              <div style={{textAlign: 'center'}}>
+                <button 
+                  className="button-next"
+                  onClick={handleNextQuestion}
+                >
+                  Next Question →
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
