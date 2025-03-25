@@ -2,38 +2,55 @@ import React, { useState, useEffect } from 'react';
 
 const GuessTheHeadlineGame = () => {
   const [question, setQuestion] = useState({
+    id: null,
     snippet: '',
     source: '',
     headlines: [],
     correct_headline: '',
-    id: null
+    total_questions: 0
   });
   const [isLoading, setIsLoading] = useState(true);
   const [feedback, setFeedback] = useState('');
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [round, setRound] = useState(1);
+  const [currentQuestionNum, setCurrentQuestionNum] = useState(1);
   const [error, setError] = useState(null);
   const [timeLeft, setTimeLeft] = useState(30);
   const [gameOver, setGameOver] = useState(false);
 
-  // Fetch a new question
-  const fetchQuestion = async () => {
+  // Fetch the next valid question in sequence
+  const fetchQuestion = async (questionId = null) => {
     setIsLoading(true);
     setHasAnswered(false);
     setFeedback('');
     setTimeLeft(30);
     
     try {
-      const response = await fetch('http://localhost:8000/api/get_question/');
-      if (!response.ok) {
-        throw new Error('Failed to fetch question');
-      }
+      const url = questionId 
+        ? `http://localhost:8000/api/headline_get_question/?question_id=${questionId}`
+        : 'http://localhost:8000/api/headline_get_question/';
+      
+      const response = await fetch(url);
       const data = await response.json();
+      
+      if (!response.ok || data.error) {
+        throw new Error(data.error || 'Failed to fetch question');
+      }
+      
+      // Verify the correct headline exists in the options
+      if (!data.headlines.includes(data.correct_headline)) {
+        throw new Error('Invalid question configuration');
+      }
+      
       setQuestion(data);
     } catch (err) {
-      setError('Error loading question. Please try again later.');
+      setError(err.message);
       console.error(err);
+      
+      // Try to fetch the next question if current one is invalid
+      if (questionId) {
+        fetchQuestion(questionId);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -41,20 +58,20 @@ const GuessTheHeadlineGame = () => {
 
   // Timer effect
   useEffect(() => {
-    if (timeLeft > 0 && !hasAnswered && !isLoading) {
+    if (timeLeft > 0 && !hasAnswered && !isLoading && !error) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && !hasAnswered) {
+    } else if (timeLeft === 0 && !hasAnswered && !error) {
       handleAnswer(null);
     }
-  }, [timeLeft, hasAnswered, isLoading]);
+  }, [timeLeft, hasAnswered, isLoading, error]);
 
   // Handle user's answer
   const handleAnswer = async (selectedHeadline) => {
-    if (hasAnswered) return;
+    if (hasAnswered || error) return;
     
     try {
-      const response = await fetch('http://localhost:8000/api/submit_answer/', {
+      const response = await fetch('http://localhost:8000/api/headline_submit_answer/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -63,43 +80,43 @@ const GuessTheHeadlineGame = () => {
         })
       });
       
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Failed to submit answer');
+        throw new Error(data.error || 'Failed to submit answer');
       }
       
-      const data = await response.json();
       setFeedback(data.feedback);
       setHasAnswered(true);
       
-      // Update score if answer was correct
       if (data.is_correct) {
         setScore(prevScore => prevScore + 1);
       }
     } catch (err) {
-      setError('Error submitting answer. Please try again.');
+      setError(err.message);
       console.error(err);
     }
   };
 
   // Load next question
   const handleNextQuestion = () => {
-    if (round >= 10) { // Game ends after 10 rounds
+    if (currentQuestionNum >= question.total_questions) {
       setGameOver(true);
     } else {
-      setRound(prevRound => prevRound + 1);
-      fetchQuestion();
+      setCurrentQuestionNum(prev => prev + 1);
+      fetchQuestion(question.id);
     }
   };
 
   // Restart game
   const handleRestart = () => {
     setScore(0);
-    setRound(1);
+    setCurrentQuestionNum(1);
     setGameOver(false);
+    setError(null);
     fetchQuestion();
   };
 
-  // Load initial question on component mount
+  // Load initial question
   useEffect(() => {
     fetchQuestion();
   }, []);
@@ -111,7 +128,7 @@ const GuessTheHeadlineGame = () => {
         <p className="text-red-500">{error}</p>
         <button 
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={fetchQuestion}
+          onClick={handleRestart}
         >
           Try Again
         </button>
@@ -123,7 +140,7 @@ const GuessTheHeadlineGame = () => {
     return (
       <div className="p-4 bg-white rounded shadow max-w-2xl mx-auto text-center">
         <h2 className="text-xl font-semibold mb-2">Game Over!</h2>
-        <p className="text-lg mb-4">Your final score: {score} out of {round}</p>
+        <p className="text-lg mb-4">Your score: {score}/{question.total_questions}</p>
         <button 
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           onClick={handleRestart}
@@ -138,7 +155,7 @@ const GuessTheHeadlineGame = () => {
     <div className="p-4 bg-white rounded shadow max-w-2xl mx-auto">
       <h2 className="text-xl font-semibold mb-2">Guess the Headline Game</h2>
       <div className="flex justify-between mb-4">
-        <p className="text-sm text-gray-600">Round: {round}/10</p>
+        <p className="text-sm text-gray-600">Question: {currentQuestionNum}/{question.total_questions}</p>
         <p className="text-sm text-gray-600">Score: {score}</p>
         <p className="text-sm text-gray-600">Time: {timeLeft}s</p>
       </div>
@@ -184,7 +201,7 @@ const GuessTheHeadlineGame = () => {
               className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={handleNextQuestion}
             >
-              {round < 10 ? 'Next Question' : 'See Results'}
+              {currentQuestionNum < question.total_questions ? 'Next Question' : 'See Results'}
             </button>
           )}
         </>
