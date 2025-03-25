@@ -1,49 +1,67 @@
 [
     {
       "model": "game.question",
-      "pk": 1,
-      "fields": 
-      {
-        "snippet": "A recent study published in the New England Journal of Medicine found that regular exercise can reduce the risk of cardiovascular disease by up to 30 percent in adults over 50.",
-        "is_real": true,
-        "source": "New England Journal of Medicine",
-        "headline": "Exercise Reduces Heart Disease Risk",
-        "correct_headline": "Exercise Reduces Heart Disease Risk"
-      }
-    },
-    {
-      "model": "game.question",
-      "pk": 2,
-      "fields": 
-      {
-        "snippet": "NASA's new James Webb Space Telescope has captured images of distant galaxies that formed just 300 million years after the Big Bang, providing new insights into the early universe.",
-        "is_real": true,
-        "source": "NASA",
-        "headline": "Webb Telescope Captures Images of Early Universe",
-        "correct_headline": "Webb Telescope Captures Images of Early Universe"
-      }
-    },
-    {
-      "model": "game.question",
-      "pk": 3,
-      "fields": 
-      {
-        "snippet": "Scientists have discovered that sleeping with your phone under your pillow can cause brain cells to deteriorate 45% faster and lead to early-onset dementia.",
+      "pk": 5,
+      "fields": {
+        "snippet": "Researchers at Stanford University have found that people who use sarcasm regularly have developed a third region in their brains, located between the frontal lobe and temporal lobe, which they've named the 'eye-roll cortex'.",
         "is_real": false,
-        "source": "Health News Daily",
-        "headline": "Phones Under Pillows Linked to Brain Damage",
+        "source": "Neuroscience Weekly",
+        "headline": "Study: Sarcastic People Evolving New Brain Region",
         "correct_headline": "No valid headline - this is fake news"
       }
     },
     {
       "model": "game.question",
-      "pk": 4,
-      "fields": 
-      {
-        "snippet": "A new technology developed by MIT researchers allows plants to emit a soft blue glow when they need water, potentially revolutionizing home gardening.",
+      "pk": 6,
+      "fields": {
+        "snippet": "A groundbreaking study by Harvard economists reveals that millennials could easily afford homes if they simply stopped purchasing oxygen, with the average person spending over $27,000 on breathing during their lifetime.",
         "is_real": false,
-        "source": "Science Today",
-        "headline": "Glowing Plants Tell You When They Need Water",
+        "source": "Economic Times",
+        "headline": "Millennials Could Afford Houses By Giving Up Breathing, Study Shows",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 7,
+      "fields": {
+        "snippet": "The FDA has approved a new medication that allows people to photosynthesize their food, eliminating the need to eat for those with busy work schedules. Side effects include turning slightly green and an irresistible urge to face the sun.",
+        "is_real": false,
+        "source": "Medical Innovation Today",
+        "headline": "New Pill Allows Humans To Photosynthesize Food, Ending Lunch Breaks",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 8,
+      "fields": {
+        "snippet": "NASA scientists have discovered that the Moon has been slowly moving away from Earth due to being 'completely fed up' with humanity's constant attention and lunar conspiracy theories, according to sensitive gravitational measurements.",
+        "is_real": false,
+        "source": "Astronomy Report",
+        "headline": "Moon Gradually Leaving Earth's Orbit 'To Get Some Space'",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 9,
+      "fields": {
+        "snippet": "A revolutionary algorithm developed by Google can now predict with 99.8% accuracy when someone is about to say 'I'm not a tech person' before asking for help with a simple computer task, using only nearby WiFi signals.",
+        "is_real": false,
+        "source": "Tech Innovations",
+        "headline": "New AI Can Predict When Someone Will Ask For Tech Help",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 10,
+      "fields": {
+        "snippet": "Climate scientists have determined that global warming could be completely solved if everyone simply opened their refrigerator doors for 3 hours each day, creating a net cooling effect on the atmosphere.",
+        "is_real": false,
+        "source": "Climate Solutions Journal",
+        "headline": "Global Warming Could Be Solved By Leaving Refrigerators Open",
         "correct_headline": "No valid headline - this is fake news"
       }
     }
