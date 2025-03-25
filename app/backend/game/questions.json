@@ -1,0 +1,58 @@
+[
+    {
+      "model": "game.question",
+      "pk": 1,
+      "fields": {
+        "snippet": "A recent study published in the New England Journal of Medicine found that regular exercise can reduce the risk of cardiovascular disease by up to 30 percent in adults over 50.",
+        "is_real": true,
+        "source": "New England Journal of Medicine",
+        "headline1": "Exercise Reduces Heart Disease Risk",
+        "headline2": "New Study Shows Exercise is Bad for You",
+        "headline3": "Cardiovascular Disease Risk Increases with Exercise",
+        "headline4": "Study Finds No Link Between Exercise and Heart Health",
+        "correct_headline": "Exercise Reduces Heart Disease Risk"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 2,
+      "fields": {
+        "snippet": "NASA's new James Webb Space Telescope has captured images of distant galaxies that formed just 300 million years after the Big Bang, providing new insights into the early universe.",
+        "is_real": true,
+        "source": "NASA",
+        "headline1": "Webb Telescope Captures Images of Early Universe",
+        "headline2": "NASA Discovers New Planets with Webb Telescope",
+        "headline3": "James Webb Telescope Finds Signs of Alien Life",
+        "headline4": "NASA's Webb Telescope Reveals New Galaxy",
+        "correct_headline": "Webb Telescope Captures Images of Early Universe"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 3,
+      "fields": {
+        "snippet": "Scientists have discovered that sleeping with your phone under your pillow can cause brain cells to deteriorate 45% faster and lead to early-onset dementia.",
+        "is_real": false,
+        "source": "Health News Daily",
+        "headline1": "Phones Under Pillows Linked to Brain Damage",
+        "headline2": "New Study Shows Phones Improve Brain Health",
+        "headline3": "Sleeping with Phones Boosts Memory",
+        "headline4": "Phones Under Pillows Prevent Alzheimer's",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 4,
+      "fields": {
+        "snippet": "A new technology developed by MIT researchers allows plants to emit a soft blue glow when they need water, potentially revolutionizing home gardening.",
+        "is_real": false,
+        "source": "Science Today",
+        "headline1": "Glowing Plants Tell You When They Need Water",
+        "headline2": "MIT Develops Plants That Produce Electricity",
+        "headline3": "New Technology Turns Plants into Night Lights",
+        "headline4": "Plants Emit Blue Light to Repel Insects",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    }
+  ]
