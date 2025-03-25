@@ -40,7 +40,7 @@ const RealOrFakeGame = () => {
     // Each second reduces the bonus by 0.5 points
     // Minimum bonus: 0 points
     const maxBonus = 10;
-    const pointsLostPerSecond = 0.25;
+    const pointsLostPerSecond = 0.40;
     const calculatedBonus = Math.max(0, maxBonus - (seconds * pointsLostPerSecond));
     
     // Round to 1 decimal place for more granular scoring
