@@ -1,0 +1,24 @@
+[
+    {
+        "title": "SpaceX Launches New Rocket",
+        "content": "SpaceX successfully launched another batch of Starlink satellites into orbit.",
+        "choices": [
+            "BBC",
+            "CNN",
+            "The Verge",
+            "NY Times"
+        ],
+        "answer": "BBC"
+    },
+    {
+        "title": "Apple Unveils New iPhone",
+        "content": "Apple introduced the iPhone 15 with improved battery life and a USB-C port.",
+        "choices": [
+            "TechCrunch",
+            "Wired",
+            "The Verge",
+            "Engadget"
+        ],
+        "answer": "The Verge"
+    }
+]

@@ -3,6 +3,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Question, PlayerResponse
 import random
+from django.conf import settings
+import json
+import os
+import uuid
 
 @api_view(['GET'])
 def real_or_fake_question(request):
@@ -31,3 +35,52 @@ def real_or_fake_answer(request):
     )
     feedback = 'Correct!' if is_correct else f'Incorrect. It was {"real" if question.is_real else "fake"}.'
     return Response({ 'feedback': feedback })
+
+
+# Path to the articles.json file
+ARTICLES_PATH = os.path.join(settings.BASE_DIR, 'articles.json')
+
+
+# GET: Serve one random question (article with choices)
+@api_view(['GET'])
+def guess_source_question(request):
+    try:
+        with open(ARTICLES_PATH, 'r') as f:
+            articles = json.load(f)
+    except Exception as e:
+        return Response({'error': f'Failed to load articles: {str(e)}'}, status=500)
+
+    if not articles:
+        return Response({'error': 'No articles available.'}, status=404)
+
+    # Assign a UUID to the article for identification
+    article = random.choice(articles)
+    article['id'] = str(uuid.uuid4())
+    request.session['current_question_id'] = article['id']
+    request.session['current_answer'] = article['answer']
+
+    return Response({
+        'id': article['id'],
+        'title': article.get('title', ''),
+        'content': article['content'],
+        'choices': article['choices']
+    })
+
+
+# POST: Submit answer and get feedback
+@api_view(['POST'])
+def guess_source_answer(request):
+    user_answer = request.data.get('answer')
+    question_id = request.data.get('question_id')
+
+    correct_answer = request.session.get('current_answer')
+    saved_question_id = request.session.get('current_question_id')
+
+    if not correct_answer or question_id != saved_question_id:
+        return Response({'feedback': 'Invalid or expired question.'}, status=400)
+
+    if user_answer == correct_answer:
+        return Response({'feedback': '✅ Correct!'})
+    else:
+        return Response({'feedback': f'❌ Incorrect! The correct source was {correct_answer}.'})
+
