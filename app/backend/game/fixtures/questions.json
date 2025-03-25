@@ -46,5 +46,77 @@
         "headline": "Glowing Plants Tell You When They Need Water",
         "correct_headline": "No valid headline - this is fake news"
       }
+    },
+    {
+      "model": "game.question",
+      "pk": 5,
+      "fields": 
+      {
+        "snippet": "A new study from Harvard Medical School has found that people who regularly forget their passwords have a 43% lower risk of identity theft, since they themselves are unable to access their own accounts.",
+        "is_real": false,
+        "source": "Cybersecurity Journal",
+        "headline": "Study: Forgetting Your Password Actually Makes You Safer Online",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 6,
+      "fields": 
+      {
+        "snippet": "Report: Average American spends 87% of waking life staring at rectangular objects. The study measured time spent looking at phones, monitors, TVs, windows, doors, books, and other rectangles.",
+        "is_real": false,
+        "source": "Bureau of Rectangle Research",
+        "headline": "Report: 87% Of American Life Spent Staring At Glowing Rectangles",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 7,
+      "fields": 
+      {
+        "snippet": "Millennial homeownership could reach 80% by 2030 if millennials simply eliminated brunches, Starbucks, smartphones, transportation, healthcare, housing, higher education, and food from their budgets, economists report.",
+        "is_real": false,
+        "source": "Economic Times Today",
+        "headline": "Financial Experts Say Millennials Can Easily Afford Homes By Giving Up Basic Necessities",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 8,
+      "fields": 
+      {
+        "snippet": "NASA astronomers have discovered a new star in the Andromeda galaxy that appears to be sending out perfectly timed light pulses in what scientists are calling 'an obvious attempt to reach out and make contact.'",
+        "is_real": false,
+        "source": "Astronomy Digest",
+        "headline": "Desperate Star Clearly Looking For Attention, Say Astronomers",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 9,
+      "fields": 
+      {
+        "snippet": "Google has announced a new feature called 'Google Conscience' that can detect when you're about to make a bad life decision and will repeatedly ask 'Are you sure?' with increasing levels of judgment in its voice assistant.",
+        "is_real": false,
+        "source": "Tech Innovations Weekly",
+        "headline": "New Google Feature Just Sighs Loudly When You Make Poor Life Choices",
+        "correct_headline": "No valid headline - this is fake news"
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 10,
+      "fields": 
+      {
+        "snippet": "Scientists at MIT have created an AI capable of correctly identifying whether a human is about to say the phrase 'I'm not a tech person, but...' with 99.8% accuracy by analyzing subtle changes in facial microexpressions.",
+        "is_real": false,
+        "source": "AI Research Today",
+        "headline": "New AI Can Predict When Someone Is About To Say They're Not A Tech Person",
+        "correct_headline": "No valid headline - this is fake news"
+      }
     }
-  ]
+]
