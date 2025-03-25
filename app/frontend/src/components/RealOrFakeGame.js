@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './RealOrFakeGame.css';
 
 const RealOrFakeGame = () => {
@@ -10,12 +10,49 @@ const RealOrFakeGame = () => {
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(1);
   const [error, setError] = useState(null);
+  // New state variables for timing
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [timeBonus, setTimeBonus] = useState(0);
+  const timerRef = useRef(null);
+
+  // Start the timer when a new question loads
+  const startTimer = () => {
+    setTimeElapsed(0);
+    // Clear any existing timer
+    if (timerRef.current) clearInterval(timerRef.current);
+    
+    // Start a new timer that increments every second
+    timerRef.current = setInterval(() => {
+      setTimeElapsed(prev => prev + 1);
+    }, 1000);
+  };
+
+  // Stop the timer when user answers
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+  };
+
+  // Calculate time bonus based on speed - more granular scoring
+  const calculateTimeBonus = (seconds) => {
+    // Maximum possible bonus: 10 points
+    // Each second reduces the bonus by 0.5 points
+    // Minimum bonus: 0 points
+    const maxBonus = 10;
+    const pointsLostPerSecond = 0.25;
+    const calculatedBonus = Math.max(0, maxBonus - (seconds * pointsLostPerSecond));
+    
+    // Round to 1 decimal place for more granular scoring
+    return Math.round(calculatedBonus);
+  };
 
   // Fetch a new question
   const fetchQuestion = async () => {
     setIsLoading(true);
     setHasAnswered(false);
     setFeedback('');
+    setTimeBonus(0);
     
     try {
       const response = await fetch('http://localhost:8000/api/real_or_fake_question/');
@@ -25,10 +62,12 @@ const RealOrFakeGame = () => {
       const data = await response.json();
       setSnippet(data.snippet);
       setQuestionId(data.id);
+      setIsLoading(false);
+      // Start timing after question is loaded
+      startTimer();
     } catch (err) {
       setError('Error loading question. Please try again later.');
       console.error(err);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -36,6 +75,11 @@ const RealOrFakeGame = () => {
   // Handle user's answer
   const handleAnswer = async (userAnswer) => {
     if (hasAnswered) return;
+    
+    // Stop the timer and calculate bonus
+    stopTimer();
+    const bonus = calculateTimeBonus(timeElapsed);
+    setTimeBonus(bonus);
     
     try {
       const response = await fetch('http://localhost:8000/api/real_or_fake_answer/', {
@@ -55,9 +99,9 @@ const RealOrFakeGame = () => {
       setFeedback(data.feedback);
       setHasAnswered(true);
       
-      // Update score if answer was correct
+      // Update score with time bonus if correct
       if (data.feedback.includes('Correct')) {
-        setScore(prevScore => prevScore + 1);
+        setScore(prevScore => prevScore + 1 + bonus);
       }
     } catch (err) {
       setError('Error submitting answer. Please try again.');
@@ -74,7 +118,19 @@ const RealOrFakeGame = () => {
   // Load initial question on component mount
   useEffect(() => {
     fetchQuestion();
+    
+    // Clean up timer on unmount
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
+
+  // Format time as MM:SS
+  const formatTime = (seconds) => {
+    return `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
+  };
 
   if (error) {
     return (
@@ -97,11 +153,16 @@ const RealOrFakeGame = () => {
   return (
     <div className="game-container">
       <div className="game-card">
-        {/* Header */}
+        {/* Header with game info and timer */}
         <div className="game-header">
           <h2 className="game-title">Real or Fake Article Game</h2>
-          <div className="game-score">
-            Round: {round} | Score: {score}
+          <div className="game-stats">
+            <div className="game-score">
+              Round: {round} | Score: {score}
+            </div>
+            <div className={`game-timer ${timeElapsed > 15 ? 'timer-slow' : ''}`}>
+              Time: {formatTime(timeElapsed)}
+            </div>
           </div>
         </div>
         
@@ -141,6 +202,11 @@ const RealOrFakeGame = () => {
                 <p className={feedback.includes('Correct') ? 'text-correct' : 'text-incorrect'}>
                   {feedback}
                 </p>
+                {feedback.includes('Correct') && timeBonus > 0 && (
+                  <p className="time-bonus">
+                    Speed bonus: +{timeBonus} points (answered in {timeElapsed} seconds)
+                  </p>
+                )}
               </div>
             )}
             
