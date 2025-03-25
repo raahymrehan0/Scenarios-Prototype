@@ -22,6 +22,8 @@ npm start dev --open
 
 Node 23.9.0
 
+mac 
+
 cd app/frontend
 npm start
 
