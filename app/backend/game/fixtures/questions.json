@@ -2,7 +2,8 @@
     {
       "model": "game.question",
       "pk": 1,
-      "fields": {
+      "fields": 
+      {
         "snippet": "A recent study published in the New England Journal of Medicine found that regular exercise can reduce the risk of cardiovascular disease by up to 30 percent in adults over 50.",
         "is_real": true,
         "source": "New England Journal of Medicine",
@@ -13,7 +14,8 @@
     {
       "model": "game.question",
       "pk": 2,
-      "fields": {
+      "fields": 
+      {
         "snippet": "NASA's new James Webb Space Telescope has captured images of distant galaxies that formed just 300 million years after the Big Bang, providing new insights into the early universe.",
         "is_real": true,
         "source": "NASA",
@@ -24,7 +26,8 @@
     {
       "model": "game.question",
       "pk": 3,
-      "fields": {
+      "fields": 
+      {
         "snippet": "Scientists have discovered that sleeping with your phone under your pillow can cause brain cells to deteriorate 45% faster and lead to early-onset dementia.",
         "is_real": false,
         "source": "Health News Daily",
@@ -35,7 +38,8 @@
     {
       "model": "game.question",
       "pk": 4,
-      "fields": {
+      "fields": 
+      {
         "snippet": "A new technology developed by MIT researchers allows plants to emit a soft blue glow when they need water, potentially revolutionizing home gardening.",
         "is_real": false,
         "source": "Science Today",
