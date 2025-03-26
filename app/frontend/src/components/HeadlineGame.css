@@ -1,0 +1,150 @@
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .game-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .game-header {
+    margin-bottom: 20px;
+  }
+  
+  .game-title {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .game-score, .game-timer {
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .game-timer.timer-slow {
+    color: #e74c3c;
+  }
+  
+  .article-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .article-title {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .article-content {
+    color: #34495e;
+    line-height: 1.5;
+  }
+  
+  .headline-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .headline-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: left;
+  }
+  
+  .headline-button:hover:not(:disabled) {
+    background-color: #2980b9;
+  }
+  
+  .headline-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .headline-button.correct-answer {
+    background-color: #2ecc71;
+  }
+  
+  .button-next {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button-next:hover {
+    background-color: #27ae60;
+  }
+  
+  .button-next:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  .feedback-correct, .feedback-incorrect {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .feedback-correct {
+    background-color: #d5f5e3;
+  }
+  
+  .feedback-incorrect {
+    background-color: #fadbd8;
+  }
+  
+  .text-correct {
+    color: #27ae60;
+    font-weight: bold;
+  }
+  
+  .text-incorrect {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .time-bonus {
+    color: #16a085;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 30px;
+  }
+  
+  .loading-text {
+    color: #7f8c8d;
+  }
