@@ -108,6 +108,7 @@ def guess_source_answer(request):
 def headline_get_question(request):
     """Get the next question in sequence"""
     question_id = request.GET.get('question_id')
+
     
     try:
         if question_id:
@@ -118,6 +119,7 @@ def headline_get_question(request):
         else:
             # Get the first question
             question = Question.objects.order_by('id').first()
+            print(question)
             if not question:
                 return Response({'error': 'No questions available'}, status=404)
         
