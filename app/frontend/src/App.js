@@ -26,10 +26,12 @@ const Home = () => (
           <p>Given an article snippet, can you identify the original headline?</p>
         </Link>
         
-        <Link to="/guess-source" className="game-option">
-          <h3>Guess the Source</h3>
-          <p>Determine which publication an article excerpt came from.</p>
-        </Link>
+        <div className="center-tile">
+          <Link to="/guess-source" className="game-option">
+            <h3>Guess the Source</h3>
+            <p>Determine which publication an article excerpt came from.</p>
+          </Link>
+        </div>
       </div>
     </div>
   </div>
