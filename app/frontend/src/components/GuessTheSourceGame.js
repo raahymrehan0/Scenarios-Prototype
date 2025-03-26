@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './RealOrFakeGame.css';
 
 const GuessTheSourceGame = () => {
@@ -9,17 +9,56 @@ const GuessTheSourceGame = () => {
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(1);
   const [error, setError] = useState(null);
+  // New state variables for timing
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [timeBonus, setTimeBonus] = useState(0);
+  const timerRef = useRef(null);
+
+  
+  // Start the timer when a new question loads
+  const startTimer = () => {
+    setTimeElapsed(0);
+    // Clear any existing timer
+    if (timerRef.current) clearInterval(timerRef.current);
+    
+    // Start a new timer that increments every second
+    timerRef.current = setInterval(() => {
+      setTimeElapsed(prev => prev + 1);
+    }, 1000);
+  };
+
+  // Stop the timer when user answers
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+  };
+
+  // Calculate time bonus based on speed - more granular scoring
+  const calculateTimeBonus = (seconds) => {
+    // Maximum possible bonus: 10 points
+    // Each second reduces the bonus by 0.5 points
+    // Minimum bonus: 0 points
+    const maxBonus = 10;
+    const pointsLostPerSecond = 0.25;
+    const calculatedBonus = Math.max(0, maxBonus - (seconds * pointsLostPerSecond));
+    
+    // Round to 1 decimal place for more granular scoring
+    return Math.round(calculatedBonus);
+  };
 
   const fetchQuestion = async () => {
     setIsLoading(true);
     setHasAnswered(false);
     setFeedback('');
+    setTimeBonus(0);
 
     try {
       const response = await fetch('http://localhost:8000/api/guess_source_question/');
       if (!response.ok) throw new Error('Failed to fetch question');
       const data = await response.json();
       setArticle(data);
+      startTimer();
     } catch (err) {
       console.error(err);
       setError('Error loading question. Please try again later.');
@@ -60,7 +99,19 @@ const GuessTheSourceGame = () => {
 
   useEffect(() => {
     fetchQuestion();
+    
+    // Clean up timer on unmount
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
+
+  // Format time as MM:SS
+  const formatTime = (seconds) => {
+    return `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
+  };
 
   if (error) {
     return (

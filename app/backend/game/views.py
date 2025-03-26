@@ -33,7 +33,7 @@ def real_or_fake_answer(request):
         user_answer=answer,
         is_correct=is_correct
     )
-    feedback = 'Correct!' if is_correct else f'Incorrect. It was {"real" if question.is_real else "fake"}.'
+    feedback = '✅ Correct!' if is_correct else f'❌ Incorrect. It was {"real" if question.is_real else "fake"}.'
     return Response({ 'feedback': feedback })
 
 
@@ -53,9 +53,10 @@ def guess_source_question(request):
     if not articles:
         return Response({'error': 'No articles available.'}, status=404)
 
-    # Assign a UUID to the article for identification
+    # Get article and article id
     article = random.choice(articles)
-    article['id'] = str(uuid.uuid4())
+    article['id'] = article["id"]
+    # this doesn't work, probably not set up properly in django config
     request.session['current_question_id'] = article['id']
     request.session['current_answer'] = article['answer']
 
@@ -73,10 +74,24 @@ def guess_source_answer(request):
     user_answer = request.data.get('answer')
     question_id = request.data.get('question_id')
 
-    correct_answer = request.session.get('current_answer')
-    saved_question_id = request.session.get('current_question_id')
+    try:
+        with open(ARTICLES_PATH, 'r') as f:
+            articles = json.load(f)
+    except Exception as e:
+        return Response({'error': f'Failed to load articles: {str(e)}'}, status=500)
 
-    if not correct_answer or question_id != saved_question_id:
+    if not articles:
+        return Response({'error': 'No articles available.'}, status=404)
+
+    for article in articles:
+        if article["id"] == question_id: 
+            correct_answer = article["answer"]
+
+    print(correct_answer)
+    #print(saved_question_id)
+
+    #if not correct_answer or question_id != saved_question_id:
+    if not correct_answer:
         return Response({'feedback': 'Invalid or expired question.'}, status=400)
 
     if user_answer == correct_answer:

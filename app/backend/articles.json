@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "title": "SpaceX Launches New Rocket",
         "content": "SpaceX successfully launched another batch of Starlink satellites into orbit.",
         "choices": [
@@ -11,6 +12,7 @@
         "answer": "BBC"
     },
     {
+        "id": 2,
         "title": "Apple Unveils New iPhone",
         "content": "Apple introduced the iPhone 15 with improved battery life and a USB-C port.",
         "choices": [
