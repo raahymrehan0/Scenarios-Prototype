@@ -8,7 +8,14 @@
         "is_real": true,
         "source": "New England Journal of Medicine",
         "headline": "Exercise Reduces Heart Disease Risk",
-        "correct_headline": "Exercise Reduces Heart Disease Risk"
+        "correct_headline": "Exercise Reduces Heart Disease Risk",
+        "headline_options": [
+          "Exercise Reduces Heart Disease Risk",
+          "Study Shows Physical Activity Benefits Older Adults",
+          "Medical Journal Publishes Cardiovascular Research",
+          "New Health Guidelines for Seniors Released"
+        ],
+        "source_options": ["New England Journal of Medicine", "The Lancet", "JAMA", "British Medical Journal"]
       }
     },
     {
@@ -20,7 +27,14 @@
         "is_real": true,
         "source": "NASA",
         "headline": "Webb Telescope Captures Images of Early Universe",
-        "correct_headline": "Webb Telescope Captures Images of Early Universe"
+        "correct_headline": "Webb Telescope Captures Images of Early Universe",
+        "headline_options": [
+          "Webb Telescope Captures Images of Early Universe",
+          "NASA Releases First Photos from New Space Telescope",
+          "Distant Galaxies Revealed in Groundbreaking Images",
+          "Astronomers Get Glimpse of Cosmic Dawn"
+        ],
+        "source_options": ["NASA", "Space.com", "Scientific American", "National Geographic"]
       }
     },
     {
@@ -30,9 +44,16 @@
       {
         "snippet": "Scientists have discovered that sleeping with your phone under your pillow can cause brain cells to deteriorate 45% faster and lead to early-onset dementia.",
         "is_real": false,
-        "source": "Health News Daily",
+        "source": "Fake News",
         "headline": "Phones Under Pillows Linked to Brain Damage",
-        "correct_headline": "No valid headline - this is fake news"
+        "correct_headline": "No valid headline - this is fake news",
+        "headline_options": [
+          "Phones Under Pillows Linked to Brain Damage",
+          "Study Reveals Shocking Smartphone Health Risk",
+          "Neurologists Warn Against Nighttime Phone Habits",
+          "Research Shows Electronic Devices Impact Sleep Quality"
+        ],
+        "source_options": ["Fake News", "The Lancet", "CNN Health", "Medical News Today"]
       }
     },
     {
@@ -66,9 +87,16 @@
       {
         "snippet": "Report: Average American spends 87% of waking life staring at rectangular objects. The study measured time spent looking at phones, monitors, TVs, windows, doors, books, and other rectangles.",
         "is_real": false,
-        "source": "Bureau of Rectangle Research",
+        "source": "Fake News",
         "headline": "Report: 87% Of American Life Spent Staring At Glowing Rectangles",
-        "correct_headline": "No valid headline - this is fake news"
+        "correct_headline": "No valid headline - this is fake news",
+        "headline_options": [
+          "Report: 87% Of American Life Spent Staring At Glowing Rectangles",
+          "New Study Quantifies Screen Time Epidemic",
+          "Americans Now Live Majority of Life Looking at Screens",
+          "Research Shows Alarming Rise in Device Dependency"
+        ],
+        "source_options": ["Fake News", "Pew Research", "Journal of Psychology", "MIT Technology Review"]
       }
     },
     {
@@ -90,9 +118,16 @@
       {
         "snippet": "NASA astronomers have discovered a new star in the Andromeda galaxy that appears to be sending out perfectly timed light pulses in what scientists are calling 'an obvious attempt to reach out and make contact.'",
         "is_real": false,
-        "source": "Astronomy Digest",
+        "source": "Fake News",
         "headline": "Desperate Star Clearly Looking For Attention, Say Astronomers",
-        "correct_headline": "No valid headline - this is fake news"
+        "correct_headline": "No valid headline - this is fake news",
+        "headline_options": [
+          "Desperate Star Clearly Looking For Attention, Say Astronomers",
+          "Scientists Detect Unusual Signal From Nearby Galaxy",
+          "Astronomers Observe Strange Stellar Behavior in Andromeda",
+          "NASA Telescope Captures Rhythmic Pulses From Distant Star"
+        ],
+        "source_options": ["Fake News", "NASA", "Scientific American", "Astronomy Magazine"]
       }
     },
     {
@@ -114,9 +149,54 @@
       {
         "snippet": "Scientists at MIT have created an AI capable of correctly identifying whether a human is about to say the phrase 'I'm not a tech person, but...' with 99.8% accuracy by analyzing subtle changes in facial microexpressions.",
         "is_real": false,
-        "source": "AI Research Today",
+        "source": "Fake News",
         "headline": "New AI Can Predict When Someone Is About To Say They're Not A Tech Person",
-        "correct_headline": "No valid headline - this is fake news"
+        "correct_headline": "No valid headline - this is fake news",
+        "headline_options": [
+          "New AI Can Predict When Someone Is About To Say They're Not A Tech Person",
+          "MIT Breakthrough: AI Reads Facial Expressions to Predict Speech",
+          "Artificial Intelligence Can Now Anticipate Human Statements",
+          "Computer Scientists Develop Expression-Reading Algorithm"
+        ],
+        "source_options": ["Fake News", "MIT Technology Review", "Wired", "TechCrunch"]
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 11,
+      "fields": 
+      {
+        "snippet": "SpaceX successfully launched another batch of Starlink satellites into orbit.",
+        "is_real": true,
+        "source": "BBC",
+        "headline": "SpaceX Launches New Rocket",
+        "correct_headline": "SpaceX Launches New Rocket",
+        "headline_options": [
+          "SpaceX Launches New Rocket",
+          "Elon Musk's Company Sends More Internet Satellites to Space",
+          "Starlink Expansion Continues with Latest Launch",
+          "New Rocket Technology Debuts in Latest SpaceX Mission"
+        ],
+        "source_options": ["BBC", "CNN", "The Verge", "NY Times"]
+      }
+    },
+    {
+      "model": "game.question",
+      "pk": 12,
+      "fields": 
+      {
+        "snippet": "Apple introduced the iPhone 15 with improved battery life and a USB-C port.",
+        "is_real": true,
+        "source": "The Verge",
+        "headline": "Apple Unveils New iPhone",
+        "correct_headline": "Apple Unveils New iPhone",
+        "headline_options": [
+          "Apple Unveils New iPhone",
+          "iPhone 15 Finally Adopts USB-C, Abandons Lightning",
+          "New iPhone Release Shows Apple's Changing Strategy",
+          "Apple's Latest Phone Boasts Better Battery Performance"
+        ],
+        "source_options": ["TechCrunch", "Wired", "The Verge", "Engadget"]
       }
     }
 ]
