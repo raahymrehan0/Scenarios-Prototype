@@ -31,3 +31,21 @@ def real_or_fake_answer(request):
     )
     feedback = 'Correct!' if is_correct else f'Incorrect. It was {"real" if question.is_real else "fake"}.'
     return Response({ 'feedback': feedback })
+
+@api_view(['GET'])
+def guess_headline_question(request):
+    question = random.choice(Question.objects.all())
+    return Response({
+        'id': question.id,
+        'snippet': question.snippet,
+        'headline_options': question.headline_options
+    })
+
+@api_view(['GET'])
+def guess_source_question(request):
+    question = random.choice(Question.objects.all())
+    return Response({
+        'id': question.id,
+        'snippet': question.snippet,
+        'source_options': question.source_options
+    })
