@@ -37,10 +37,11 @@ const GuessTheHeadlineGame = () => {
         throw new Error(data.error || 'Failed to fetch question');
       }
       
+      //// IMPORTANT: This doesn't work for the fake articles because it 
       // Verify the correct headline exists in the options
-      if (!data.headlines.includes(data.correct_headline)) {
-        throw new Error('Invalid question configuration');
-      }
+      //if (!data.headlines.includes(data.correct_headline)) {
+      //  throw new Error('Invalid question configuration');
+      //}
       
       setQuestion(data);
     } catch (err) {
@@ -48,9 +49,9 @@ const GuessTheHeadlineGame = () => {
       console.error(err);
       
       // Try to fetch the next question if current one is invalid
-      if (questionId) {
-        fetchQuestion(questionId);
-      }
+      //if (questionId) {
+      //  fetchQuestion(questionId);
+      //}
     } finally {
       setIsLoading(false);
     }
