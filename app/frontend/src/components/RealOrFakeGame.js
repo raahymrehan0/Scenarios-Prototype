@@ -14,6 +14,9 @@ const RealOrFakeGame = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timeBonus, setTimeBonus] = useState(0);
   const timerRef = useRef(null);
+  const [gameOver, setGameOver] = useState(false);
+  const roundLength = 5;
+
 
   // Start the timer when a new question loads
   const startTimer = () => {
@@ -111,9 +114,22 @@ const RealOrFakeGame = () => {
 
   // Load next question
   const handleNextQuestion = () => {
-    setRound(prevRound => prevRound + 1);
-    fetchQuestion();
+    if (round >= roundLength) {
+      setGameOver(true);
+    } else {
+      setRound(prev => prev + 1);
+      fetchQuestion();
+    }
   };
+
+    // Restart game
+    const handleRestart = () => {
+      setScore(0);
+      setRound(1);
+      setGameOver(false);
+      setError(null);
+      fetchQuestion();
+    };
 
   // Load initial question on component mount
   useEffect(() => {
@@ -146,6 +162,26 @@ const RealOrFakeGame = () => {
             </button>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (gameOver) {
+    return (
+      <div className="game-container">
+      <div className="game-card">
+      <div className="game-header">
+          <h2 className="game-title">Game Over!</h2>
+          <div className="game-score">
+            Your score: {score} points
+          </div>
+        </div>
+        <div className="button-container">
+        <button className="button-real" onClick={handleRestart}>
+          Play Again
+        </button>
+        </div>
+      </div>
       </div>
     );
   }

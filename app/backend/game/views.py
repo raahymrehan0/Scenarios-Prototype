@@ -38,8 +38,28 @@ def guess_headline_question(request):
     return Response({
         'id': question.id,
         'snippet': question.snippet,
-        'headline_options': question.headline_options
+        'source': question.source,
+        'headlines': question.headline_options,
+        'correct_headline': question.correct_headline
     })
+
+@api_view(['POST'])
+def guess_headline_answer(request):
+    answer = request.data.get('selected_headline')
+    question_id = request.data.get('question_id')
+
+    # Get the specific question by ID
+    try:
+        question = Question.objects.get(id=question_id)
+    except Question.DoesNotExist:
+        return Response({'error': 'Question not found'}, status=404)
+    
+    correct_answer = question.correct_headline
+    if answer == correct_answer:
+        return Response({'feedback': '✅ Correct!', 'is_correct': True})
+    else:
+        return Response({'feedback': f'❌ Incorrect! The correct headline was: {correct_answer}.', 'is_correct': False})
+
 
 @api_view(['GET'])
 def guess_source_question(request):
@@ -49,3 +69,22 @@ def guess_source_question(request):
         'snippet': question.snippet,
         'source_options': question.source_options
     })
+
+
+@api_view(['POST'])
+def guess_source_answer(request):
+    answer = request.data.get('answer')
+    question_id = request.data.get('question_id')
+
+    # Get the specific question by ID
+    try:
+        question = Question.objects.get(id=question_id)
+    except Question.DoesNotExist:
+        return Response({'error': 'Question not found'}, status=404)
+    
+    correct_answer = question.source
+    if answer == correct_answer:
+        return Response({'feedback': '✅ Correct!'})
+    else:
+        return Response({'feedback': f'❌ Incorrect! The correct source was {correct_answer}.'})
+
